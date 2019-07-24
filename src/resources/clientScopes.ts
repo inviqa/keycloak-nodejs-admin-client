@@ -20,8 +20,8 @@ export class ClientScopes extends Resource<{realm?: string}> {
    * Client-Scopes by id
    */
 
-  public findOneById = this.makeRequest<
-    {id: string},
+  public findOne = this.makeRequest<
+    { id: string },
     ClientScopeRepresentation
   >({
     method: 'GET',
@@ -30,8 +30,8 @@ export class ClientScopes extends Resource<{realm?: string}> {
     catchNotFound: true,
   });
 
-  public updateById = this.makeUpdateRequest<
-    {id: string},
+  public update = this.makeUpdateRequest<
+    { id: string },
     ClientScopeRepresentation,
     void
   >({
@@ -40,7 +40,7 @@ export class ClientScopes extends Resource<{realm?: string}> {
     urlParamKeys: ['id'],
   });
 
-  public delById = this.makeRequest<{id: string}, void>({
+  public del = this.makeRequest<{ id: string }, void>({
     method: 'DELETE',
     path: '/client-scopes/{id}',
     urlParamKeys: ['id'],
@@ -58,13 +58,13 @@ export class ClientScopes extends Resource<{realm?: string}> {
     path: '/default-default-client-scopes',
   });
 
-  public addDefaultClientScope = this.makeRequest<{id: string}, void>({
+  public addDefaultClientScope = this.makeRequest<{ id: string }, void>({
     method: 'PUT',
     path: '/default-default-client-scopes/{id}',
     urlParamKeys: ['id'],
   });
 
-  public delDefaultClientScope = this.makeRequest<{id: string}, void>({
+  public delDefaultClientScope = this.makeRequest<{ id: string }, void>({
     method: 'DELETE',
     path: '/default-default-client-scopes/{id}',
     urlParamKeys: ['id'],
@@ -82,13 +82,13 @@ export class ClientScopes extends Resource<{realm?: string}> {
     path: '/default-optional-client-scopes',
   });
 
-  public addDefaultOptionalClientScope = this.makeRequest<{id: string}, void>({
+  public addDefaultOptionalClientScope = this.makeRequest<{ id: string }, void>({
     method: 'PUT',
     path: '/default-optional-client-scopes/{id}',
     urlParamKeys: ['id'],
   });
 
-  public delDefaultOptionalClientScope = this.makeRequest<{id: string}, void>({
+  public delDefaultOptionalClientScope = this.makeRequest<{ id: string }, void>({
     method: 'DELETE',
     path: '/default-optional-client-scopes/{id}',
     urlParamKeys: ['id'],
@@ -99,7 +99,7 @@ export class ClientScopes extends Resource<{realm?: string}> {
    */
 
   public addMultipleProtocolMappers = this.makeUpdateRequest<
-    {id: string},
+    { id: string },
     ProtocolMapperRepresentation[],
     void
   >({
@@ -109,7 +109,7 @@ export class ClientScopes extends Resource<{realm?: string}> {
   });
 
   public addProtocolMapper = this.makeUpdateRequest<
-    {id: string},
+    { id: string },
     ProtocolMapperRepresentation,
     void
   >({
@@ -119,7 +119,7 @@ export class ClientScopes extends Resource<{realm?: string}> {
   });
 
   public listProtocolMappers = this.makeRequest<
-    {id: string},
+    { id: string },
     ProtocolMapperRepresentation[]
   >({
     method: 'GET',
@@ -128,7 +128,7 @@ export class ClientScopes extends Resource<{realm?: string}> {
   });
 
   public findProtocolMapperById = this.makeRequest<
-    {id: string; mapperId: string},
+    { id: string; mapperId: string },
     ProtocolMapperRepresentation
   >({
     method: 'GET',
@@ -138,7 +138,7 @@ export class ClientScopes extends Resource<{realm?: string}> {
   });
 
   public findProtocolMappersByProtocol = this.makeRequest<
-    {id: string; protocol: string},
+    { id: string; protocol: string },
     ProtocolMapperRepresentation[]
   >({
     method: 'GET',
@@ -148,7 +148,7 @@ export class ClientScopes extends Resource<{realm?: string}> {
   });
 
   public updateProtocolMapper = this.makeUpdateRequest<
-    {id: string; mapperId: string},
+    { id: string; mapperId: string },
     ProtocolMapperRepresentation,
     void
   >({
@@ -158,7 +158,7 @@ export class ClientScopes extends Resource<{realm?: string}> {
   });
 
   public delProtocolMapper = this.makeRequest<
-    {id: string; mapperId: string},
+    { id: string; mapperId: string },
     void
   >({
     method: 'DELETE',
@@ -170,7 +170,7 @@ export class ClientScopes extends Resource<{realm?: string}> {
    * Scope Mappings
    */
   public listScopeMappings = this.makeRequest<
-    {id: string},
+    { id: string },
     MappingsRepresentation
   >({
     method: 'GET',
@@ -179,7 +179,7 @@ export class ClientScopes extends Resource<{realm?: string}> {
   });
 
   public addClientScopeMappings = this.makeUpdateRequest<
-    {id: string; client: string},
+    { id: string; client: string },
     RoleRepresentation[],
     void
   >({
@@ -189,7 +189,7 @@ export class ClientScopes extends Resource<{realm?: string}> {
   });
 
   public listClientScopeMappings = this.makeRequest<
-    {id: string; client: string},
+    { id: string; client: string },
     RoleRepresentation[]
   >({
     method: 'GET',
@@ -198,7 +198,7 @@ export class ClientScopes extends Resource<{realm?: string}> {
   });
 
   public listAvailableClientScopeMappings = this.makeRequest<
-    {id: string; client: string},
+    { id: string; client: string },
     RoleRepresentation[]
   >({
     method: 'GET',
@@ -207,7 +207,7 @@ export class ClientScopes extends Resource<{realm?: string}> {
   });
 
   public listCompositeClientScopeMappings = this.makeRequest<
-    {id: string; client: string},
+    { id: string; client: string },
     RoleRepresentation[]
   >({
     method: 'GET',
@@ -216,7 +216,7 @@ export class ClientScopes extends Resource<{realm?: string}> {
   });
 
   public delClientScopeMappings = this.makeUpdateRequest<
-    {id: string; client: string},
+    { id: string; client: string },
     RoleRepresentation[],
     void
   >({
@@ -226,7 +226,7 @@ export class ClientScopes extends Resource<{realm?: string}> {
   });
 
   public addRealmScopeMappings = this.makeUpdateRequest<
-    {id: string},
+    { id: string },
     RoleRepresentation[],
     void
   >({
@@ -236,7 +236,7 @@ export class ClientScopes extends Resource<{realm?: string}> {
   });
 
   public listRealmScopeMappings = this.makeRequest<
-    {id: string},
+    { id: string },
     RoleRepresentation[]
   >({
     method: 'GET',
@@ -245,7 +245,7 @@ export class ClientScopes extends Resource<{realm?: string}> {
   });
 
   public listAvailableRealmScopeMappings = this.makeRequest<
-    {id: string},
+    { id: string },
     RoleRepresentation[]
   >({
     method: 'GET',
@@ -254,7 +254,7 @@ export class ClientScopes extends Resource<{realm?: string}> {
   });
 
   public listCompositeRealmScopeMappings = this.makeRequest<
-    {id: string},
+    { id: string },
     RoleRepresentation[]
   >({
     method: 'GET',
@@ -263,7 +263,7 @@ export class ClientScopes extends Resource<{realm?: string}> {
   });
 
   public delRealmScopeMappings = this.makeUpdateRequest<
-    {id: string},
+    { id: string },
     RoleRepresentation[],
     void
   >({
@@ -290,7 +290,7 @@ export class ClientScopes extends Resource<{realm?: string}> {
     name: string;
   }): Promise<ClientScopeRepresentation> {
     const allScopes = await this.find({
-      ...(payload.realm ? {realm: payload.realm} : {}),
+      ...(payload.realm ? { realm: payload.realm } : {}),
     });
     const scope = allScopes.find(item => item.name === payload.name);
     return scope ? scope : null;
@@ -309,8 +309,8 @@ export class ClientScopes extends Resource<{realm?: string}> {
       throw new Error('Scope not found.');
     }
 
-    await this.delById({
-      ...(payload.realm ? {realm: payload.realm} : {}),
+    await this.del({
+      ...(payload.realm ? { realm: payload.realm } : {}),
       id: scope.id,
     });
   }
@@ -325,7 +325,7 @@ export class ClientScopes extends Resource<{realm?: string}> {
   }): Promise<ProtocolMapperRepresentation> {
     const allProtocolMappers = await this.listProtocolMappers({
       id: payload.id,
-      ...(payload.realm ? {realm: payload.realm} : {}),
+      ...(payload.realm ? { realm: payload.realm } : {}),
     });
     const protocolMapper = allProtocolMappers.find(
       mapper => mapper.name === payload.name,
