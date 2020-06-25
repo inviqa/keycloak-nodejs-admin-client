@@ -94,6 +94,24 @@ export class Clients extends Resource<{realm?: string}> {
     urlParamKeys: ['id', 'roleName'],
   });
 
+  public createRoleComposites = this.makeUpdateRequest<{id: string; roleName: string}, RoleRepresentation[], void>({
+    method: 'POST',
+    path: '/{id}/roles/{roleName}/composites',
+    urlParamKeys: ['id', 'roleName'],
+  });
+
+  public listRoleComposites = this.makeRequest<{id: string, roleName: string}, RoleRepresentation[]>({
+    method: 'GET',
+    path: '/{id}/roles/{roleName}/composites',
+    urlParamKeys: ['id', 'roleName'],
+  });
+
+  public delRoleComposites = this.makeUpdateRequest<{id: string; roleName: string}, RoleRepresentation[], void>({
+    method: 'DELETE',
+    path: '/{id}/roles/{roleName}/composites',
+    urlParamKeys: ['id', 'roleName'],
+  });
+
   public findUsersWithRole = this.makeRequest<
     {id: string; roleName: string; first?: number; max?: number},
     UserRepresentation[]
@@ -395,7 +413,7 @@ export class Clients extends Resource<{realm?: string}> {
 
   public getSessionCount = this.makeRequest<
     {id: string},
-    { "count": number }
+    {"count": number}
   >({
     method: 'GET',
     path: '/{id}/session-count',
@@ -404,7 +422,7 @@ export class Clients extends Resource<{realm?: string}> {
 
   public getOfflineSessionCount = this.makeRequest<
     {id: string},
-    { "count": number }
+    {"count": number}
   >({
     method: 'GET',
     path: '/{id}/offline-session-count',

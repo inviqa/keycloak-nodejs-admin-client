@@ -46,6 +46,24 @@ export class Roles extends Resource<{realm?: string}> {
     urlParamKeys: ['name'],
   });
 
+  public createComposites = this.makeUpdateRequest<{name: string}, RoleRepresentation[], void>({
+    method: 'POST',
+    path: '/roles/{name}/composites',
+    urlParamKeys: ['name'],
+  });
+
+  public listComposites = this.makeRequest<{name: string}, RoleRepresentation[]>({
+    method: 'GET',
+    path: '/roles/{name}/composites',
+    urlParamKeys: ['name'],
+  });
+
+  public delComposites = this.makeUpdateRequest<{name: string}, RoleRepresentation[], void>({
+    method: 'DELETE',
+    path: '/roles/{name}/composites',
+    urlParamKeys: ['name'],
+  });
+
   public findUsersWithRole = this.makeRequest<{name: string}, UserRepresentation[]>({
     method: 'GET',
     path: '/roles/{name}/users',
