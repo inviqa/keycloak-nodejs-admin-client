@@ -20,3 +20,8 @@ export interface RoleMappingPayload extends RoleRepresentation {
   id: string;
   name: string;
 }
+
+// when requesting to role composite api (create, delete), id is required
+export interface RoleCompositePayload extends RoleRepresentation {
+  id: string;
+}

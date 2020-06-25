@@ -1,5 +1,5 @@
 import Resource from './resource';
-import RoleRepresentation from '../defs/roleRepresentation';
+import RoleRepresentation, {RoleCompositePayload} from '../defs/roleRepresentation';
 import UserRepresentation from '../defs/userRepresentation';
 import {KeycloakAdminClient} from '../client';
 
@@ -43,6 +43,24 @@ export class Roles extends Resource<{realm?: string}> {
   public delByName = this.makeRequest<{name: string}, void>({
     method: 'DELETE',
     path: '/roles/{name}',
+    urlParamKeys: ['name'],
+  });
+
+  public addComposites = this.makeUpdateRequest<{name: string}, RoleCompositePayload[], void>({
+    method: 'POST',
+    path: '/roles/{name}/composites',
+    urlParamKeys: ['name'],
+  });
+
+  public listComposites = this.makeRequest<{name: string}, RoleRepresentation[]>({
+    method: 'GET',
+    path: '/roles/{name}/composites',
+    urlParamKeys: ['name'],
+  });
+
+  public delComposites = this.makeUpdateRequest<{name: string}, RoleCompositePayload[], void>({
+    method: 'DELETE',
+    path: '/roles/{name}/composites',
     urlParamKeys: ['name'],
   });
 

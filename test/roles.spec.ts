@@ -1,6 +1,7 @@
 // tslint:disable:no-unused-expression
 import * as chai from 'chai';
 import {KeycloakAdminClient} from '../src/client';
+import faker from 'faker';
 import {credentials} from './constants';
 import RoleRepresentation from '../src/defs/roleRepresentation';
 
@@ -11,10 +12,11 @@ declare module 'mocha' {
   interface ISuiteCallbackContext {
     client?: KeycloakAdminClient;
     currentRole?: RoleRepresentation;
+    otherRole?: RoleRepresentation;
   }
 }
 
-describe('Roles', function() {
+describe('Roles', function () {
   before(async () => {
     this.client = new KeycloakAdminClient();
     await this.client.auth(credentials);
@@ -112,4 +114,67 @@ describe('Roles', function() {
     expect(users).to.be.ok;
     expect(users).to.be.an('array');
   })
+
+  /**
+   * Role composites
+   */
+  describe('composites', () => {
+    before(async () => {
+      // create new role
+      const roleName = faker.internet.userName();
+      await this.kcAdminClient.roles.create({
+        name: roleName,
+      });
+      const role = await this.kcAdminClient.roles.findOneByName({
+        name: roleName,
+      });
+      this.otherRole = role;
+    });
+
+    after(async () => {
+      await this.kcAdminClient.roles.delByName({name: this.otherRole.name});
+    });
+
+    it('add a role composite to role', async () => {
+      // add role-mappings with role id
+      await this.kcAdminClient.roles.addComposites(
+        {
+          name: this.currentRole.name
+        },
+        [
+          {
+            id: this.otherRole.id
+          }
+        ]
+      );
+    });
+
+    it('list composite roles of role', async () => {
+      const roles = await this.kcAdminClient.roles.listComposites(
+        {
+          name: this.currentRole.name,
+        },
+      );
+
+      expect(roles).to.deep.include(this.otherRole);
+    });
+
+    it('del composite roles of role', async () => {
+      await this.kcAdminClient.roles.delComposites(
+        {
+          name: this.currentRole.name
+        },
+        [
+          {
+            id: this.otherRole.id
+          },
+        ],
+      );
+
+      const roles = await this.kcAdminClient.roles.listComposites({
+        name: this.currentRole.name,
+      });
+      expect(roles).to.not.deep.include(this.otherRole);
+    });
+  });
 });

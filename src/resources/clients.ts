@@ -1,7 +1,7 @@
 import Resource from './resource';
 import ClientRepresentation from '../defs/clientRepresentation';
 import {KeycloakAdminClient} from '../client';
-import RoleRepresentation from '../defs/roleRepresentation';
+import RoleRepresentation, {RoleCompositePayload} from '../defs/roleRepresentation';
 import UserRepresentation from '../defs/userRepresentation';
 import CredentialRepresentation from '../defs/credentialRepresentation';
 import ClientScopeRepresentation from '../defs/clientScopeRepresentation';
@@ -91,6 +91,24 @@ export class Clients extends Resource<{realm?: string}> {
   public delRole = this.makeRequest<{id: string; roleName: string}, void>({
     method: 'DELETE',
     path: '/{id}/roles/{roleName}',
+    urlParamKeys: ['id', 'roleName'],
+  });
+
+  public addRoleComposites = this.makeUpdateRequest<{id: string; roleName: string}, RoleCompositePayload[], void>({
+    method: 'POST',
+    path: '/{id}/roles/{roleName}/composites',
+    urlParamKeys: ['id', 'roleName'],
+  });
+
+  public listRoleComposites = this.makeRequest<{id: string, roleName: string}, RoleRepresentation[]>({
+    method: 'GET',
+    path: '/{id}/roles/{roleName}/composites',
+    urlParamKeys: ['id', 'roleName'],
+  });
+
+  public delRoleComposites = this.makeUpdateRequest<{id: string; roleName: string}, RoleCompositePayload[], void>({
+    method: 'DELETE',
+    path: '/{id}/roles/{roleName}/composites',
     urlParamKeys: ['id', 'roleName'],
   });
 
@@ -395,7 +413,7 @@ export class Clients extends Resource<{realm?: string}> {
 
   public getSessionCount = this.makeRequest<
     {id: string},
-    { "count": number }
+    {"count": number}
   >({
     method: 'GET',
     path: '/{id}/session-count',
@@ -404,7 +422,7 @@ export class Clients extends Resource<{realm?: string}> {
 
   public getOfflineSessionCount = this.makeRequest<
     {id: string},
-    { "count": number }
+    {"count": number}
   >({
     method: 'GET',
     path: '/{id}/offline-session-count',
